@@ -14,7 +14,7 @@ router.get('/banner', async (req, res) => {
         const settings = await fs.readJson(settingsPath);
         
         // Check if banners are enabled globally
-        if (settings.bannersEnabled === false) {
+        if (settings.bannersEnabled === false || settings.banners === "undefined") {
             return res.json({
                 status: 'success',
                 message: 'Banners are currently disabled',
