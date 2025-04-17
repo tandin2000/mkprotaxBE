@@ -85,6 +85,7 @@
         </div>
 
         <!-- Banners Section -->
+        <% if (settings.bannersEnabled) { %>
         <div class="form-section">
             <div class="accordion" id="bannerAccordion">
                 <div class="accordion-item">
@@ -183,6 +184,7 @@
                 <p class="text-muted">No banners added yet.</p>
             <% } %>
         </div>
+        <% } %>
 
         <!-- Settings Section -->
         <div class="form-section">
@@ -208,12 +210,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="tiktok" class="form-label"><i class="bi bi-tiktok me-1"></i> TikTok</label>
-                            <input type="url" class="form-control" id="tiktok" name="tiktok" value="<%= settings.socialMedia?.tiktok || '' %>" placeholder="https://tiktok.com/@yourprofile">
+                            <label for="whatsapp" class="form-label"><i class="bi bi-whatsapp me-1"></i> WhatsApp</label>
+                            <input type="url" class="form-control" id="whatsapp" name="whatsapp" value="<%= settings.socialMedia?.whatsapp || '' %>" placeholder="https://wa.me/yournumber">
                         </div>
                         <div class="mb-3">
-                            <label for="linkedin" class="form-label"><i class="bi bi-linkedin me-1"></i> LinkedIn</label>
-                            <input type="url" class="form-control" id="linkedin" name="linkedin" value="<%= settings.socialMedia?.linkedin || '' %>" placeholder="https://linkedin.com/company/yourcompany">
+                            <label for="indeed" class="form-label"><i class="bi bi-briefcase me-1"></i> Indeed</label>
+                            <input type="url" class="form-control" id="indeed" name="indeed" value="<%= settings.socialMedia?.indeed || '' %>" placeholder="https://indeed.com/company/yourcompany">
                         </div>
                     </div>
                 </div>
