@@ -150,7 +150,9 @@ const adminController = {
 
             const settings = await dataService.getSettings();
             
+            // Ensure bannersEnabled is a boolean
             settings.bannersEnabled = bannersEnabled === 'true';
+            console.log('Updating settings with bannersEnabled:', settings.bannersEnabled);
             
             settings.socialMedia = {
                 facebook,
