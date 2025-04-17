@@ -124,6 +124,8 @@ const adminController = {
                 instagram,
                 tiktok,
                 linkedin,
+                whatsapp,
+                indeed,
                 address,
                 city,
                 state,
@@ -158,7 +160,9 @@ const adminController = {
                 facebook,
                 instagram,
                 tiktok,
-                linkedin
+                linkedin,
+                whatsapp,
+                indeed
             };
 
             settings.location = {

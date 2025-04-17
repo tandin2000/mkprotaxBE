@@ -43,7 +43,9 @@ class DataService {
                             facebook: '',
                             instagram: '',
                             tiktok: '',
-                            linkedin: ''
+                            linkedin: '',
+                            whatsapp: '',
+                            indeed: ''
                         },
                         location: {
                             address: '',
@@ -114,7 +116,9 @@ class DataService {
                     facebook: '',
                     instagram: '',
                     tiktok: '',
-                    linkedin: ''
+                    linkedin: '',
+                    whatsapp: '',
+                    indeed: ''
                 },
                 location: {
                     address: '',
