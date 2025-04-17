@@ -36,10 +36,23 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
+        httpOnly: true,
+        sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
-    }
+    },
+    proxy: true
 }));
+
+// Trust proxy (important for HTTPS)
+app.set('trust proxy', 1);
+
+// Add session logging middleware
+app.use((req, res, next) => {
+    console.log('Session middleware - Session:', req.session);
+    console.log('Session middleware - Session ID:', req.sessionID);
+    next();
+});
 
 // Routes
 const authRoutes = require('./routes/auth');
