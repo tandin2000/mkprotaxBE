@@ -13,16 +13,27 @@ router.get('/banner', async (req, res) => {
         const settingsPath = path.join(__dirname, '../../data/settings/settings.json');
         const settings = await fs.readJson(settingsPath);
         
-        // Add full URL to image paths
-        const bannersWithFullUrl = settings.banners.map(banner => ({
-            ...banner,
-            imageUrl: `${req.protocol}://${req.get('host')}${banner.imageUrl}`
-        }));
+        // Check if banners are enabled globally
+        if (!settings.bannersEnabled) {
+            return res.json({
+                status: 'success',
+                message: 'Banners are currently disabled',
+                data: []
+            });
+        }
+        
+        // Filter active banners and add full URL to image paths
+        const activeBanners = settings.banners
+            .filter(banner => banner.isActive)
+            .map(banner => ({
+                ...banner,
+                imageUrl: `${req.protocol}://${req.get('host')}${banner.imageUrl}`
+            }));
 
         res.json({
             status: 'success',
             message: 'Banner information retrieved successfully',
-            data: bannersWithFullUrl || []
+            data: activeBanners || []
         });
     } catch (error) {
         res.status(500).json({

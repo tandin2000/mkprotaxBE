@@ -37,6 +37,10 @@ const adminController = {
     // Banner operations
     addBanner: async (req, res) => {
         try {
+            const settings = await dataService.getSettings();
+            if (!settings.bannersEnabled) {
+                throw new Error('Banners are currently disabled. Please enable them in settings first.');
+            }
             if (!req.file) {
                 throw new Error('Image is required');
             }
@@ -44,7 +48,8 @@ const adminController = {
                 title: req.body.title,
                 description: req.body.description,
                 url: req.body.url,
-                imageUrl: `/uploads/${req.file.filename}`
+                imageUrl: `/uploads/${req.file.filename}`,
+                isActive: req.body.isActive === 'true'
             };
             await dataService.addBanner(bannerData);
             res.redirect('/admin/dashboard');
@@ -62,11 +67,16 @@ const adminController = {
 
     updateBanner: async (req, res) => {
         try {
+            const settings = await dataService.getSettings();
+            if (!settings.bannersEnabled) {
+                throw new Error('Banners are currently disabled. Please enable them in settings first.');
+            }
             const id = parseInt(req.params.id);
             const bannerData = {
                 title: req.body.title,
                 description: req.body.description,
-                url: req.body.url
+                url: req.body.url,
+                isActive: req.body.isActive === 'true'
             };
             if (req.file) {
                 bannerData.imageUrl = `/uploads/${req.file.filename}`;
@@ -87,6 +97,10 @@ const adminController = {
 
     deleteBanner: async (req, res) => {
         try {
+            const settings = await dataService.getSettings();
+            if (!settings.bannersEnabled) {
+                throw new Error('Banners are currently disabled. Please enable them in settings first.');
+            }
             const id = parseInt(req.params.id);
             await dataService.deleteBanner(id);
             res.redirect('/admin/dashboard');
@@ -130,10 +144,13 @@ const adminController = {
                 saturdayOpen,
                 saturdayClose,
                 sundayOpen,
-                sundayClose
+                sundayClose,
+                bannersEnabled
             } = req.body;
 
             const settings = await dataService.getSettings();
+            
+            settings.bannersEnabled = bannersEnabled === 'true';
             
             settings.socialMedia = {
                 facebook,
