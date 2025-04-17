@@ -11,34 +11,20 @@ router.use(cors());
 router.get('/banner', async (req, res) => {
     try {
         const settingsPath = path.join(__dirname, '../../data/settings/settings.json');
-        const settings = await fs.readJson(settingsPath);
-        
-        console.log('Banner settings:', {
-            bannersEnabled: settings.bannersEnabled,
-            banners: settings.banners
-        });
-        
+        const settings = await fs.readJson(settingsPath);        
         // Check if banners are enabled globally
-        if (settings.bannersEnabled === false) {
+        if (settings.bannersEnabled === false || settings.bannersEnabled === "undefined") {
             return res.json({
                 status: 'success',
                 message: 'Banners are currently disabled',
                 data: []
             });
         }
-        
-        // Filter active banners and add full URL to image paths
-        const activeBanners = (settings.banners || [])
-            .filter(banner => banner.isActive)
-            .map(banner => ({
-                ...banner,
-                imageUrl: `${req.protocol}://${req.get('host')}${banner.imageUrl}`
-            }));
 
         res.json({
             status: 'success',
             message: 'Banner information retrieved successfully',
-            data: activeBanners
+            data: settings.banners
         });
     } catch (error) {
         console.error('Error in banner endpoint:', error);
