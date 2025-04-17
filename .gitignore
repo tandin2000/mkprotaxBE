@@ -17,8 +17,18 @@ yarn-error.log
 .DS_Store
 
 # Uploaded files
-# public/uploads/*
-# !public/uploads/.gitkeep
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Data directories
+data/sessions/*
+!data/sessions/.gitkeep
+data/settings/*
+!data/settings/.gitkeep
+data/news/*
+!data/news/.gitkeep
+data/users/*
+!data/users/.gitkeep
 
 # Logs
 logs/
